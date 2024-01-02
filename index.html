@@ -31,7 +31,11 @@
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
+      var unityInstance = UnityLoader.instantiate("unity-container", "Build/UnityServicesProjectConfiguration.json", { onProgress: UnityProgress });
 
+      unityInstance.SendMessage("ChangeScene", "ExitToMenu");
+      unityInstance.SendMessage("CompleteReceiver", "MunchCompleted");
+      
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
       // If type=='warning', a yellow highlight color is used.
@@ -54,6 +58,15 @@
           }, 5000);
         }
         updateBannerVisibility();
+      }
+
+        function ExitToMenu() {
+        console.log("Go to loop page");
+        window.location.href = "https://mindloops.org/loops"
+      }
+
+      function MunchCompleted() {
+        console.log("You receive Munch badges");
       }
 
       var buildUrl = "Build";
